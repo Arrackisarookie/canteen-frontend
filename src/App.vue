@@ -11,7 +11,8 @@ export default {
       websocket: null,
       new_message: "",
       messages: [],
-      backend_baseurl: import.meta.env.VITE_BACKEND_BASEURL
+      backend_baseurl: import.meta.env.VITE_BACKEND_BASEURL,
+      websocket_protocol: import.meta.env.VITE_WEBSOCKET_PROTOCOL
     }
   },
   methods: {
@@ -20,7 +21,7 @@ export default {
       if (this.nickname == "") this.nickname = prompt("Enter a nickname:");
       console.log(import.meta.env.VITE_DOMAIN_NAME)
       //connect to Sockets Bay
-      var sockets_bay_url = `ws://` + this.backend_baseurl + `/chatroom?nickname=` + this.nickname;
+      var sockets_bay_url = this.websocket_protocol + `://` + this.backend_baseurl + `/chatroom?nickname=` + this.nickname;
       this.websocket = new WebSocket(sockets_bay_url);
       //
       this.websocket.onopen = this.onSocketOpen;
